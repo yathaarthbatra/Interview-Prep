@@ -36,8 +36,38 @@ int coinChangePermutInfi(int target, int arr[], int n, string ans)
     return count;
 }
 
+//Now single coin can be used
+int coinChangePermut(int target, int arr[], int n, string ans)
+{
+
+    //base case
+    if (target == 0)
+    {
+        cout << ans << endl;
+        return 1;
+    }
+
+    int count = 0;
+
+    for (int i = 0; i < n; i++)
+    {
+        int ele = arr[i];
+
+        if (arr[i] > 0 && target - ele >= 0)
+        {
+            arr[i] = -arr[i];
+            count += coinChangePermut(target - ele, arr, n, ans + to_string(ele));
+            arr[i] = -arr[i];
+        }
+    }
+    return count;
+}
+
 int main()
 {
     int arr[] = {2, 3, 5, 7};
     cout << coinChangePermutInfi(10, arr, 4, "");
+    cout << endl
+         << "--" << endl;
+    cout << coinChangePermut(10, arr, 4, "");
 }
